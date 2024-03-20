@@ -1,0 +1,8 @@
+# OS
+.DS_Store
+
+# Local
+*.local
+*.env.testing
+*.env.staging
+

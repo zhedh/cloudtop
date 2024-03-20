@@ -1,0 +1,13 @@
+{
+  "name": "cloudtop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": "sh init.sh",
+    "start": "sh start.sh"
+  },
+  "keywords": [],
+  "author": "zhedh",
+  "license": "ISC"
+}

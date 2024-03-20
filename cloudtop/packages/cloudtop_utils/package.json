@@ -1,0 +1,25 @@
+{
+  "name": "@cloudtop/utils",
+  "version": "1.0.8",
+  "description": "@cloudtop/utils",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cloudtop_utils.umd.js",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "files": [
+    "dist",
+    "esm"
+  ],
+  "scripts": {
+    "dev": "tsc --watch -p tsconfig.json",
+    "build": "npm run build:bundle && npm run build:esm",
+    "build:bundle": "rm -rf dist && rollup --config",
+    "build:esm": "rm -rf esm && tsc -p tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "gitHead": "37c995021016c1dfc1b1427fcae4e7cc9f82ea6d"
+}
