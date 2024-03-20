@@ -17,10 +17,10 @@ Cloudtop 前端监控系统是一套集流量监控、错误监控、性能监�
 └── start.sh
 ```
 
-cloudtop：前端性能监控探针
-cloudtop_server：日志上报服务，接收处理探针上报的日志数据
-cloudtop_monitor：前端性能监控数据大盘
-cloudtop_monitor_server：前端性能监控数据检索服务
+- cloudtop：前端性能监控探针
+- cloudtop_server：日志上报服务，接收处理探针上报的日志数据
+- cloudtop_monitor：前端性能监控数据大盘
+- cloudtop_monitor_server：前端性能监控数据检索服务
 
 ## 环境变量配置
 
@@ -86,10 +86,18 @@ pm2 log
 
 ![首页](https://github.com/zhedh/netresource/blob/5b19826cccd3f4fb59fb117f7b3487ef84f77a9a/images/cloudtop/home.png)
 
+<br/>
+
 ![概览](https://github.com/zhedh/netresource/blob/5b19826cccd3f4fb59fb117f7b3487ef84f77a9a/images/cloudtop/overview.png)
+
+<br/>
 
 ![健康状况](https://github.com/zhedh/netresource/blob/5b19826cccd3f4fb59fb117f7b3487ef84f77a9a/images/cloudtop/health.png)
 
+<br/>
+
 ![地图](https://github.com/zhedh/netresource/blob/5b19826cccd3f4fb59fb117f7b3487ef84f77a9a/images/cloudtop/map.png)
+
+<br/>
 
 ![页面性能](https://github.com/zhedh/netresource/blob/5b19826cccd3f4fb59fb117f7b3487ef84f77a9a/images/cloudtop/performance.png)
