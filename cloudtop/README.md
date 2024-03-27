@@ -1,9 +1,15 @@
 # Cloudtop 前端性能监控探针
 
+## 依赖安装
+
+```bash
+pnpm install
+```
+
 ## 开发
 
 ```bash
-npm run watch
+pnpm watch
 ```
 
 ## 打包
@@ -11,7 +17,7 @@ npm run watch
 需要支持 npx
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## 发布
