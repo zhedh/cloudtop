@@ -11,6 +11,9 @@ CLOUDTOP_SERVER_ENV=cloudtop_server/.env
 if [ -n "$1" ]; then
     CLOUDTOP_ENV="$CLOUDTOP_ENV.$1"
 fi
+
+echo "CLOUDTOP_ENV: "
+echo $CLOUDTOP_ENV
  
 # 将环境变量配置写入各个项目的环境变量
 #

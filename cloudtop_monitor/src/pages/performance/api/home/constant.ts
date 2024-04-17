@@ -17,7 +17,7 @@ export const API_STAT_LIST = [
     unit: 'ms',
     ratio: 0,
     desc: '',
-    formatValue: (value: number) => value.toFixed(2),
+    formatValue: (value: number) => value?.toFixed(2),
   },
   {
     type: 'success',
