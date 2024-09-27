@@ -19,7 +19,6 @@ behaviorRouter.get('/list', async (ctx) => {
     return
   }
 
-  // console.log(888)
   ctx.body = await behaviorList({
     projectCode,
     projectEnv,

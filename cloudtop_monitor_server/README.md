@@ -18,7 +18,10 @@
 | CLOUDTOP_DATABASE_PASSWORD   | Mysql 密码     | 必填 | -      |
 | CLOUDTOP_DATABASE_DATABASE   | Mysql 数据库名 | 必填 | -      |
 
-配置参考 .env 文件
+新建 .env 并写入环境变量，配置参考 .env.example 文件
+
+注：.env.example 将作为根项目的写入模版，文件不可删除，也不要随意修改
+注：Elastic 配置需与监控平台服务保持一致
 
 ```txt
 # 应用端口号。Docker 部署时需要 EXPOSE

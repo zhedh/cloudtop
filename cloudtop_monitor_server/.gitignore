@@ -14,6 +14,7 @@ lerna-debug.log*
 
 # Local
 *.local
+.env
 
 # Temporary
 temp/*

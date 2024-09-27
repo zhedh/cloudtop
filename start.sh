@@ -8,6 +8,10 @@ CLOUDTOP_MONITOR_ENV=cloudtop_monitor/.env
 CLOUDTOP_MONITOR_SERVER_ENV=cloudtop_monitor_server/.env
 CLOUDTOP_SERVER_ENV=cloudtop_server/.env
 
+cp "$CLOUDTOP_MONITOR_ENV.example" "$CLOUDTOP_MONITOR_ENV"
+cp "$CLOUDTOP_MONITOR_SERVER_ENV.example" "$CLOUDTOP_MONITOR_SERVER_ENV"
+cp "$CLOUDTOP_SERVER_ENV.example" "$CLOUDTOP_SERVER_ENV"
+
 if [ -n "$1" ]; then
     CLOUDTOP_ENV="$CLOUDTOP_ENV.$1"
 fi
@@ -24,22 +28,19 @@ while IFS='=' read -r key value; do
   if grep -q "^$key=" $CLOUDTOP_MONITOR_ENV; then
     # 如果存在，使用 sed 命令替换 value
     sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_ENV
-    echo "Key '$key' has been updated with the new value in $CLOUDTOP_MONITOR_ENV"
   fi
 
   if grep -q "^$key=" $CLOUDTOP_MONITOR_SERVER_ENV; then
     sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_SERVER_ENV
-    echo "Key '$key' has been updated with the new value in $CLOUDTOP_MONITOR_SERVER_ENV"
   fi
 
   if grep -q "^$key=" $CLOUDTOP_SERVER_ENV; then
     sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_SERVER_ENV
-    echo "Key '$key' has been updated with the new value in $CLOUDTOP_SERVER_ENV"
   fi
-
    
 done < $CLOUDTOP_ENV
 
+echo "环境变量同步完成"
 
 # 停止正在运行的项目
 pm2_list=$(pm2 list)

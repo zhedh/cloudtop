@@ -54,19 +54,28 @@ Cloudtop 前端监控系统是一套集流量监控、错误监控、性能监�
 
 ## 项目部署
 
-初始化项目
+**初始化项目**
 
 ```bash
 npm run init
 ```
 
-启动项目
+**启动项目**
 
 ```bash
 npm run start
 ```
 
-查看日志
+环境变量默认读取 .env 中的配置信息，如您需要配置多套环境可新建多个配置文件，例：
+
++ 新建 .env.local 文件并写入环境变量
++ 执行 npm run start local 启动项目
+
+```bash
+npm run start local
+```
+
+**查看日志**
 
 ```bash
 pm2 log
