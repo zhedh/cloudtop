@@ -26,7 +26,7 @@ function RatioChart(props: Props) {
 
   const toNumber = (value: any, fixed = 0) => {
     if (isNaN(value)) return value
-    return (+value).toFixed(fixed)
+    return (+value)?.toFixed(fixed)
   }
 
   const formatTimeKey = (key: string) => {
