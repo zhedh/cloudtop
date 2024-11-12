@@ -31,21 +31,4 @@ export const createIndex = async () => {
 export const deleteIndex = () =>
   client.indices.delete({ index: elasticConfig.INDEX })
 
-// client
-//   .search({ index: elasticConfig.INDEX, size: 20, type: elasticConfig.TYPE })
-//   .then((res) => console.log('data: ', res.body.hits.hits[0]))
-//   .catch((error) => console.log('error: ',error))
-
-export const batchCreate = (records: Record<string, any>[]) => {
-  const body: any[] = []
-  const indexConfig = { _index: elasticConfig.INDEX, _type: elasticConfig.TYPE }
-
-  records.forEach((record) => {
-    body.push({ index: indexConfig })
-    body.push(record)
-  })
-
-  return client.bulk({ body })
-}
-
 export default client

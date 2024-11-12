@@ -1,9 +1,8 @@
 import { Context } from 'koa'
 import { ErrorData } from '../../types/log'
 import { ApiData } from '../../utils/response'
-import { dataKeyToLine } from '../../utils/format'
 import { transformCommon } from './util'
-import { createPool } from '../elastic'
+import { logPool } from '../logstore'
 
 enum ErrorCategory {
   Syntax = 'SyntaxError', // 解析过程语法错误
@@ -19,7 +18,7 @@ const transform = (ctx: Context, data: Record<string, any>): ErrorData => {
     ? data.category
     : ErrorCategory.CUSTOM
 
-  return dataKeyToLine({
+  return {
     ...transformCommon(ctx, data),
     category,
     // msg 中可能含有特殊字符，需要转译
@@ -29,13 +28,13 @@ const transform = (ctx: Context, data: Record<string, any>): ErrorData => {
     line: data.line ?? 0,
     col: data.col ?? 0,
     error: data.error ?? '',
-  })
+  }
 }
 
 export const reportError = async (ctx: Context, data: Record<string, any>) => {
   const record = transform(ctx, data)
 
-  createPool.push(record)
+  logPool.push(record)
 
   return new ApiData(0, 'OK')
 }

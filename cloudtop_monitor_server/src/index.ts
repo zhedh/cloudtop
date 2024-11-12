@@ -17,7 +17,7 @@ import bodyParser from 'koa-bodyparser'
 
 import appConfig from './config/app'
 import router from './controllers'
-import { createIndex } from './services/elastic'
+// import { createIndex } from './services/elastic'
 import { initDB } from './database'
 import { errorMiddleware, projectMiddleware } from './middleware'
 
@@ -26,7 +26,7 @@ const bootstrap = async () => {
   await initDB()
 
   // ES 索引初始化
-  await createIndex()
+  // await createIndex()
 
   const app = new Koa()
     .use(

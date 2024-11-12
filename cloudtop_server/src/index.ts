@@ -17,11 +17,15 @@ import bodyParser from 'koa-bodyparser'
 
 import appConfig from './config/app'
 import router from './controllers'
-import { createIndex } from './services/elastic'
+import { initDB } from './database/mysql'
+import { initES } from './database/elastic'
 
 const bootstrap = async () => {
+  // 数据库初始化
+  await initDB()
+
   // ES 索引初始化
-  await createIndex()
+  await initES()
 
   const app = new Koa()
     .use(

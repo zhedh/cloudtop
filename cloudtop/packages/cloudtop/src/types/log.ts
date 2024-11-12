@@ -19,7 +19,7 @@ export interface CommonData {
 
   sid: string // Session ID
   sr: string // 屏幕分辨率
-  src: string // 被监控目标地址
+  url: string // 被监控目标地址
   uid: string // 用户ID
   vp: string // 页面大小
   loginId?: string // 用户登录账号
@@ -32,7 +32,7 @@ export interface PvData {
   de: string // 文档编码类型
   dpr: string // 屏幕像素比
   lang: string // 文档语言
-  url: string // 页面链接
+  // url: string // 页面链接
 }
 
 export interface ErrorData {

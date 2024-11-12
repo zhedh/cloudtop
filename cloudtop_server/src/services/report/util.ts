@@ -12,12 +12,15 @@ export const transformCommon = (
   const location = ipLocation(data.clientIp || ctx.request.ip)
   const uaInfo = uaParser(header['user-agent']!)
 
+  console.log("header['user-agent']: ", header['user-agent'])
+  console.log("data.reportTime: ", data.reportTime)
+
   return {
     pid: data.pid ?? '',
     type: data.type ?? '',
     env: data.env ?? '',
     reportTime: data.reportTime ? +data.reportTime : undefined,
-    date: data.reportTime ? +data.reportTime : createTime,
+    date: createTime,
 
     ct: data.ct ?? 'unknown',
     httpReferer: header.referer ?? '',
@@ -28,7 +31,7 @@ export const transformCommon = (
     sid: data.sid ?? '',
     pvId: data.pvId ?? '',
     page: data.page ?? '',
-    src: data.src ?? header.origin ?? '',
+    url: data.url ?? header.origin ?? '',
     sr: data.sr ?? '',
     vp: data.vp ?? '',
     uid: data.uid ?? '',

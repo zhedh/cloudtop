@@ -84,7 +84,7 @@ class Cloudtop {
       ct: getNetworkType(),
       pvId: this.pvId,
       page: this.page ?? getPathname(this.routeMode),
-      src: window.location.href,
+      url: window.location.href,
       sr: width + '*' + height,
       vp: clientWidth + '*' + clientHeight,
 

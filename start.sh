@@ -46,9 +46,10 @@ echo "环境变量同步完成"
 pm2_list=$(pm2 list)
 
 if [[ $pm2_list == *"online"* ]]; then
-  pm2 stop all
+  pm2 stop cloudtop_server
+  pm2 stop cloudtop_monitor_server
+  pm2 stop cloudtop_monitor
 fi
-
 
 # 启动 cloudtop_server 项目
 cd cloudtop_server && npm run start && cd ../ &&
