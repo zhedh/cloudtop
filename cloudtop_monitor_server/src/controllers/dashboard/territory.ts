@@ -2,7 +2,7 @@ import Router from 'koa-router'
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
 import { validateTimeRange } from '../../utils/validate'
-import { territoryUserStat } from '../../services/dashboard'
+import Topic from '../../services/topic'
 
 const territoryRouter = new Router()
 
@@ -16,7 +16,7 @@ territoryRouter.get('/user/stat', async (ctx) => {
     return
   }
 
-  ctx.body = await territoryUserStat({
+  ctx.body = await Topic.territoryUserStat({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

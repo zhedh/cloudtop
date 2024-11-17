@@ -1,10 +1,11 @@
 import { Form, Select, Input } from 'antd'
 import styled from 'styled-components'
 import { SearchOutlined } from '@ant-design/icons'
-import { PROJECT_TYPES } from '../../../constants/project'
+import { PROJECT_ENVS, PROJECT_TYPES } from '../../../constants/project'
 import React, { useCallback, useEffect } from 'react'
 import { QueryProjectParams } from '../../../services/project'
 import ProjectCreate from './ProjectCreate'
+import { ProjectEnv } from '../../../types/project'
 
 interface Props {
   onSearch: (values: QueryProjectParams) => void
@@ -21,15 +22,19 @@ interface Props {
 //   },
 // ]
 
+const INITIAL_VALUES = {
+  projectEnv: ProjectEnv.PRODUCTION,
+}
+
 const Search: React.FC<Props> = (props) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
-    props.onSearch({})
+    props.onSearch(INITIAL_VALUES)
   }, [])
 
   const handleCreate = useCallback(() => {
-    props.onSearch({})
+    props.onSearch(INITIAL_VALUES)
   }, [])
 
   const handleValuesChange = (
@@ -42,7 +47,12 @@ const Search: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <ProjectCreate onCreate={handleCreate} />
-      <Form layout="inline" form={form} onValuesChange={handleValuesChange}>
+      <Form
+        layout="inline"
+        initialValues={INITIAL_VALUES}
+        form={form}
+        onValuesChange={handleValuesChange}
+      >
         {/* <Form.Item label="团队" name="teamId">
           <Select
             variant="borderless"
@@ -54,6 +64,14 @@ const Search: React.FC<Props> = (props) => {
             allowClear
           />
         </Form.Item> */}
+        <Form.Item label="环境" name="projectEnv">
+          <Select
+            variant="borderless"
+            options={PROJECT_ENVS}
+            placeholder="请选择环境"
+            allowClear
+          />
+        </Form.Item>
         <Form.Item label="应用类型" name="projectType">
           <Select
             variant="borderless"

@@ -17,16 +17,19 @@ import bodyParser from 'koa-bodyparser'
 
 import appConfig from './config/app'
 import router from './controllers'
-// import { createIndex } from './services/elastic'
-import { initDB } from './database'
+import { initDB } from './database/mysql'
 import { errorMiddleware, projectMiddleware } from './middleware'
+import { initES } from './database/elastic'
+import { LogstoreType } from './types/base'
 
 const bootstrap = async () => {
   // 数据库初始化
   await initDB()
 
   // ES 索引初始化
-  // await createIndex()
+  if (process.env.CLOUDTOP_LOGSTORE_TYPE === LogstoreType.ELASTIC) {
+    await initES()
+  }
 
   const app = new Koa()
     .use(

@@ -8,65 +8,61 @@ function Home() {
     const uuid = generateUUID()
     console.log('uuid: ', uuid)
 
-    fetch(
-      'https://cloudtop-monitor-server-staging.retailaim.com/dashboard/overview/flo?projectCode=cloudshop_admin&date=2023-11-01',
+    window.fetch(
+      'https://cloudshop-server-dev.retailaim.com/wx-corp/customer-service/messages/999999',
       {
         headers: {
-          accept: 'application/json, text/plain, */*',
-          'accept-language': 'zh-CN,zh;q=0.9',
-          'sec-ch-ua':
-            '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
-          'sec-ch-ua-mobile': '?0',
-          'sec-ch-ua-platform': '"macOS"',
-          'sec-fetch-dest': 'empty',
-          'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-site',
+          accept: '*/*',
+          // 'accept-language': 'zh-CN,zh;q=0.9',
+          'agent-app-id': '24',
+          'content-type': 'application/json',
+          // priority: 'u=1, i',
+          // 'sec-ch-ua':
+          //   '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+          // 'sec-ch-ua-mobile': '?0',
+          // 'sec-ch-ua-platform': '"macOS"',
+          // 'sec-fetch-dest': 'empty',
+          // 'sec-fetch-mode': 'cors',
+          // 'sec-fetch-site': 'same-site',
         },
-        referrer: 'https://cloudtop-monitor-staging.retailaim.com/',
-        referrerPolicy: 'strict-origin-when-cross-origin',
+        // referrer: 'https://cloudshop-system-testing.retailaim.com/',
+        // referrerPolicy: 'strict-origin-when-cross-origin',
         body: null,
         method: 'GET',
-        mode: 'cors',
-        credentials: 'omit',
+        // mode: 'cors',
+        // credentials: 'omit',
       }
-    ).then((res) => console.log(res.json()))
+    )
 
-    // const xhr = new XMLHttpRequest();
-    // xhr.onreadystatechange = function () {
-    //   if (xhr.readyState === 4) {
-    //     if (xhr.status === 200) {
-    //       // success
-    //     } else {
-    //       // error
-    //     }
+    // window.fetch(
+    //   'https://cloudtop-monitor-server-staging.retailaim.com/dashboard/overview/flow?startTime=2024-11-14+00:00:00&endTime=2024-11-14+23:59:59',
+    //   {
+    //     headers: {
+    //       accept: 'application/json, text/plain, */*',
+    //       'accept-language': 'zh-CN,zh;q=0.9',
+    //       priority: 'u=1, i',
+    //       'project-code': 'cloudshop_admin',
+    //       'project-env': 'production',
+    //       'sec-ch-ua':
+    //         '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+    //       'sec-ch-ua-mobile': '?0',
+    //       'sec-ch-ua-platform': '"macOS"',
+    //       'sec-fetch-dest': 'empty',
+    //       'sec-fetch-mode': 'cors',
+    //       'sec-fetch-site': 'same-site',
+    //     },
+    //     referrer: 'https://cloudtop-monitor-staging.retailaim.com/',
+    //     referrerPolicy: 'strict-origin-when-cross-origin',
+    //     body: null,
+    //     method: 'GET',
+    //     mode: 'cors',
+    //     credentials: 'omit',
     //   }
-    // };
-    // xhr.open("GET", "https://cloudtop-monitor-server-staging.retailaim.com/dashboard/overview/flow?projectCode=cloudshop_admin&date=2023-11-01");
-    // xhr.send();
+    // )
 
-    // export const getClientIp = async () => {
-    //   return new Promise((resolve, reject) => {
-    //     const xhr = new XMLHttpRequest()
-    //     xhr.open('get', 'https://api.ip.sb/geoip')
-    //     xhr.send()
-    //     xhr.onload = (event) => {
-    //       const { status, response, readyState, responseText } =
-    //         event.target as XMLHttpRequest
+    
 
-    //       if (status === 200 && readyState === 4) {
-    //         resolve(JSON.stringify(response))
-    //         return
-    //       }
-    //       reject(responseText)
-    //     }
-
-    //     xhr.onerror = (event) => {
-    //       const { responseText } = event.target as XMLHttpRequest
-    //       reject(responseText)
-    //     }
-    //   })
-    //   // https://api.ip.sb/geoip
-    // }
+  
   }, [])
 
   return (

@@ -24,7 +24,7 @@ const UserBehaviorList: React.FC<Props> = (props) => {
           </h4>
           <p>
             {/* TODO 临时 */}
-            {behaviorType.value === BehaviorType.API ? record.api : record.src}
+            {behaviorType.value === BehaviorType.API ? record.api : record.url}
           </p>
         </RecordPreview>
       </li>

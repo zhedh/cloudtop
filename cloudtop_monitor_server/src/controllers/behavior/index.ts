@@ -1,14 +1,14 @@
 import Router from 'koa-router'
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
-import { behaviorDetailList, behaviorList } from '../../services/behavior'
 import { validateTimeRange } from '../../utils/validate'
+import Topic from '../../services/topic'
 
 const behaviorRouter = new Router()
 
 behaviorRouter.get('/list', async (ctx) => {
   const { projectCode, projectEnv } = ctx.state
-  const { startTime, endTime, current, pageSize } = ctx.request.query as Record<
+  const { startTime, endTime, keyword, current, pageSize } = ctx.request.query as Record<
     string,
     any
   >
@@ -19,9 +19,10 @@ behaviorRouter.get('/list', async (ctx) => {
     return
   }
 
-  ctx.body = await behaviorList({
+  ctx.body = await Topic.behaviorList({
     projectCode,
     projectEnv,
+    keyword,
     startTime: dayjs(startTime),
     endTime: dayjs(endTime),
     current: +(current ?? 1),
@@ -47,7 +48,7 @@ behaviorRouter.get('/detail/list', async (ctx) => {
     return
   }
 
-  ctx.body = await behaviorDetailList({
+  ctx.body = await Topic.behaviorDetailList({
     projectCode,
     projectEnv,
     uid,

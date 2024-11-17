@@ -6,6 +6,13 @@ export enum LogType {
   API = 'api',
 }
 
+export enum LogEnv {
+  PRODUCTION = 'production',
+  STAGING = 'staging',
+  TESTING = 'testing',
+  DEVELOPMENT = 'development',
+}
+
 export interface CommonData {
   pid: string // 应用ID或应用名称、标识应用唯一值
   type: LogType // 日志类型

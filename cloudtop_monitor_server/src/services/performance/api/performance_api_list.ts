@@ -4,7 +4,7 @@ import { LogType } from '../../../types/log'
 import { calculateRatio } from '../../../utils/calculate'
 import { ElasticBoolMust } from '../../../utils/elastic_bool'
 import { ApiData } from '../../../utils/response'
-import { count } from '../../elastic'
+import { count } from '../../../database/elastic'
 
 interface PerformanceApiListParams extends StatParams {
   api?: string

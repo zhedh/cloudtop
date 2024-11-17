@@ -19,13 +19,16 @@ import appConfig from './config/app'
 import router from './controllers'
 import { initDB } from './database/mysql'
 import { initES } from './database/elastic'
+import { LogstoreType } from './types/base'
 
 const bootstrap = async () => {
   // 数据库初始化
   await initDB()
 
   // ES 索引初始化
-  await initES()
+  if (process.env.CLOUDTOP_LOGSTORE_TYPE === LogstoreType.ELASTIC) {
+    await initES()
+  }
 
   const app = new Koa()
     .use(

@@ -1,16 +1,16 @@
 import { DataTypes, Model } from 'sequelize'
-import { sequelize } from '../database/connection'
+import { sequelize } from '../database/mysql/connection'
 import { LogType } from '../types/log'
 
 class Log extends Model {
   declare id: number
   declare pid: string // 应用ID或应用名称、标识应用唯一值
   declare type: LogType // 日志类型
-  declare reportTime?: number // 上报时间
+  declare reportTime: number // 上报时间
   declare date: number // 默认上报时间，其次取服务器时间
   declare env: string // 环境 -> prod
-  declare ext?: string // 扩展字段，不要超过100个字符 -> String | JSON.stringify(ext)
 
+  declare ct: string // 网络类型
   declare httpReferer: string // 页面Referer
   declare httpUserAgent: string // 浏览器UserAgent
   declare browser: string // 浏览器类型 -> safari
@@ -27,8 +27,10 @@ class Log extends Model {
   declare ipCountryId: string // 国家ID -> CN
   declare ipRegion: string // 省级行政区 -> 北京市
   declare ipRegionId: string // 省级行政区ID -> 110000
+  declare ipRegionName: string // 省级行政区 -> 北京市
   declare ipCity: string // 城市名称 -> 北京市
   declare ipCityId: string // 城市ID -> 110100
+  declare ipCityName: string // 城市名称 -> 北京市
   declare remoteAddr: string // 客户端IP地址
 
   declare sid: string // Session ID
@@ -39,6 +41,13 @@ class Log extends Model {
 
   declare page: string // 页面 -> testing
   declare pvId: string // PV ID -> bkkRsrej4OFdv2d4yeb37Xb2R2Xp
+
+  /**
+   * 扩展数据
+   */
+  declare loginId?: string // 用户登录ID，可以是手机号、邮箱等，根据应用自定义
+  declare ext?: string // 扩展字段，不要超过100个字符 -> String | JSON.stringify(ext)
+
 
   /**
    * PV 数据
@@ -117,6 +126,7 @@ Log.init(
     reportTime: {
       type: DataTypes.DATE,
       allowNull: true,
+      field: 'report_time',
     },
     date: {
       type: DataTypes.DATE,
@@ -126,18 +136,20 @@ Log.init(
       type: DataTypes.STRING(32),
       allowNull: false,
     },
-    ext: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+
+    ct: {
+      type: DataTypes.STRING(16),
       defaultValue: '',
     },
     httpReferer: {
       type: DataTypes.STRING(1024),
       defaultValue: '',
+      field: 'http_referer',
     },
     httpUserAgent: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(2048),
       defaultValue: '',
+      field: 'http_user_agent',
     },
     browser: {
       type: DataTypes.STRING(32),
@@ -146,6 +158,7 @@ Log.init(
     browserVersion: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'browser_version',
     },
     device: {
       type: DataTypes.STRING(32),
@@ -158,6 +171,7 @@ Log.init(
     engineVersion: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'engine_version',
     },
     os: {
       type: DataTypes.STRING(32),
@@ -166,44 +180,64 @@ Log.init(
     osVersion: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'os_version',
     },
     deviceType: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'device_type',
     },
 
 
     ipIsp: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_isp',
     },
     ipCountry: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_country',
     },
     ipCountryId: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_country_id',
     },
     ipRegion: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_region',
     },
     ipRegionId: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_region_id',
+    },
+    ipRegionName: {
+      type: DataTypes.STRING(32),
+      defaultValue: '',
+      field: 'ip_region_name',
     },
     ipCity: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_city',
     },
     ipCityId: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'ip_city_id',
+    },
+    ipCityName: {
+      type: DataTypes.STRING(32),
+      defaultValue: '',
+      field: 'ip_city_name',
     },
     remoteAddr: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'remote_addr',
     },
 
     sid: {
@@ -227,6 +261,17 @@ Log.init(
       defaultValue: '',
     },
 
+    loginId: {
+      type: DataTypes.STRING(64),
+      field: 'login_id',
+      defaultValue: '',
+    },
+    ext: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      defaultValue: '',
+    },
+
     page: {
       type: DataTypes.STRING(256),
       defaultValue: '',
@@ -234,6 +279,7 @@ Log.init(
     pvId: {
       type: DataTypes.STRING(64),
       defaultValue: '',
+      field: 'pv_id',
     },
 
     dt: {
@@ -274,11 +320,11 @@ Log.init(
       defaultValue: '',
     },
     line: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     col: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     error: {
@@ -293,6 +339,7 @@ Log.init(
     nodeName: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'node_name',
     },
     xpath: {
       type: DataTypes.STRING(512),
@@ -301,10 +348,12 @@ Log.init(
     resType: {
       type: DataTypes.STRING(32),
       defaultValue: '',
+      field: 'res_type',
     },
     resName: {
       type: DataTypes.STRING(128),
       defaultValue: '',
+      field: 'res_name',
     },
     domain: {
       type: DataTypes.STRING(128),
@@ -312,55 +361,55 @@ Log.init(
     },
 
     dns: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     tcp: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     ssl: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     ttfb: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     trans: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     dom: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     res: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     firstbyte: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     fpt: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     tti: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     ready: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     load: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     lcp: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
 
@@ -369,22 +418,23 @@ Log.init(
       allowNull: true
     },
     success: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     status: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     time: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
   },
   {
     sequelize,
     modelName: 'Log',
-    tableName: 'Log'
+    tableName: 'Log',
+    timestamps: false
   }
 )
 

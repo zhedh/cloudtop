@@ -12,7 +12,7 @@ export interface Behavior {
   reportTime: number // 发生时间（毫秒）
   uid: string
   loginId: string
-  src: string // 网址
+  url: string // 网址
   page: string // 页面
   api?: string // 接口访问地址
 }

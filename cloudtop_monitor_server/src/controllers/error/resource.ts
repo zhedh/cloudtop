@@ -1,12 +1,8 @@
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
-import {
-  errorResourceOverview,
-  errorResourceStat,
-  errorResourceToplist,
-} from '../../services/error'
 import Router from 'koa-router'
 import { validateDateRange, validateTimeRange } from '../../utils/validate'
+import Topic from '../../services/topic'
 
 const errorResourceRouter = new Router()
 
@@ -20,7 +16,7 @@ errorResourceRouter.get('/overview', async (ctx) => {
     return
   }
 
-  ctx.body = await errorResourceOverview({
+  ctx.body = await Topic.errorResourceOverview({
     projectCode,
     projectEnv,
     startDate: dayjs(startDate),
@@ -38,7 +34,7 @@ errorResourceRouter.get('/stat', async (ctx) => {
     return
   }
 
-  ctx.body = await errorResourceStat({
+  ctx.body = await Topic.errorResourceStat({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -56,7 +52,7 @@ errorResourceRouter.get('/toplist', async (ctx) => {
     return
   }
 
-  ctx.body = await errorResourceToplist({
+  ctx.body = await Topic.errorResourceToplist({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

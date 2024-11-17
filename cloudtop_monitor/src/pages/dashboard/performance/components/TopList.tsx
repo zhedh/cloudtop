@@ -16,7 +16,7 @@ interface Props {
 
 function TopList(props: Props) {
   const formatTime = (time: number) => {
-    if (!time) return ''
+    // if (time) return ''
     if (time < 1000) return time.toFixed(2) + 'ms'
     return (time / 1000).toFixed(2) + 's'
   }

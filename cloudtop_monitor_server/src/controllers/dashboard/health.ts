@@ -1,12 +1,7 @@
 import Router from 'koa-router'
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
-import {
-  HEALTH_CHART_TYPE_LIST,
-  HealthChartType,
-  healthChart,
-  healthScore,
-} from '../../services/dashboard'
+import Topic, { HealthChartType } from '../../services/topic'
 import { validateTimeRange } from '../../utils/validate'
 
 const healthRouter = new Router()
@@ -21,7 +16,7 @@ healthRouter.get('/score', async (ctx) => {
     return
   }
 
-  ctx.body = await healthScore({
+  ctx.body = await Topic.healthScore({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -39,12 +34,12 @@ healthRouter.get('/chart', async (ctx) => {
     return
   }
 
-  if (!HEALTH_CHART_TYPE_LIST.includes(type as HealthChartType)) {
+  if (!Topic.HEALTH_CHART_TYPE_LIST.includes(type as HealthChartType)) {
     ctx.body = new ApiData(400400, 'type 参数类型不匹配！')
     return
   }
 
-  ctx.body = await healthChart({
+  ctx.body = await Topic.healthChart({
     projectCode,
     projectEnv,
     type,

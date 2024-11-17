@@ -8,19 +8,15 @@ export const transformCommon = (
   data: Record<string, any>
 ): CommonData => {
   const { header = {} } = ctx.request
-  const createTime = +new Date()
   const location = ipLocation(data.clientIp || ctx.request.ip)
   const uaInfo = uaParser(header['user-agent']!)
-
-  console.log("header['user-agent']: ", header['user-agent'])
-  console.log("data.reportTime: ", data.reportTime)
 
   return {
     pid: data.pid ?? '',
     type: data.type ?? '',
     env: data.env ?? '',
     reportTime: data.reportTime ? +data.reportTime : undefined,
-    date: createTime,
+    date: +new Date(),
 
     ct: data.ct ?? 'unknown',
     httpReferer: header.referer ?? '',

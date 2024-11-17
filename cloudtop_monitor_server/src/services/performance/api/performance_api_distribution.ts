@@ -1,8 +1,8 @@
+import { count } from '../../../database/elastic'
 import { StatParams } from '../../../types'
 import { LogType } from '../../../types/log'
 import { ElasticBoolMust } from '../../../utils/elastic_bool'
 import { ApiData } from '../../../utils/response'
-import { count } from '../../elastic'
 
 interface PerformanceApiDistributionParams extends StatParams {
   interval: number

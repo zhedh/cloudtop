@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import { datetimeRangFromDate } from '../../../../utils/datetime'
 
 interface Props {
+  projectEnv: ProjectEnv
   record: Project
 }
 
@@ -26,11 +27,12 @@ const ProjectCard: React.FC<Props> = (props) => {
     ) as string[]
 
     queryProjectStat({
+      projectEnv: props.projectEnv,
       projectCode: record.projectCode,
       startTime,
       endTime,
     }).then((res) => (console.log('res: ', res), setData(res.result)))
-  }, [])
+  }, [props.projectEnv])
 
   const handleToProject = () => {
     dispatch({

@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import dayjs from 'dayjs'
-import { sequelize } from '../database/connection'
+import { sequelize } from '../database/mysql/connection'
 
 const User = sequelize.define(
   'User',

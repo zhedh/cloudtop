@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import ProjectCard from './ProjectCard'
-import { Project } from '../../../../types/project'
+import { Project, ProjectEnv } from '../../../../types/project'
 
 interface Props {
+  projectEnv: ProjectEnv
   records: Project[]
 }
 
@@ -11,7 +12,11 @@ const ProjectList: React.FC<Props> = (props) => {
     <Wrapper>
       <section>
         {props.records.map((record) => (
-          <ProjectCard key={record.id} record={record} />
+          <ProjectCard
+            key={record.id}
+            record={record}
+            projectEnv={props.projectEnv}
+          />
         ))}
       </section>
     </Wrapper>

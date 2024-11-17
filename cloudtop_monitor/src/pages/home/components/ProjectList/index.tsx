@@ -4,7 +4,7 @@ import {
   queryProjectList,
 } from '../../../../services/project'
 import ProjectList from './ProjectList'
-import { Project } from '../../../../types/project'
+import { Project, ProjectEnv } from '../../../../types/project'
 
 interface Props {
   query?: QueryProjectParams
@@ -24,7 +24,7 @@ const AppListContainer: React.FC<Props> = (props) => {
     setRecords(result.records)
   }
 
-  return <ProjectList records={records}></ProjectList>
+  return <ProjectList projectEnv={props.query?.projectEnv || ProjectEnv.PRODUCTION} records={records}></ProjectList>
 }
 
 export default AppListContainer

@@ -1,12 +1,8 @@
 import dayjs from 'dayjs'
 import Router from 'koa-router'
-import {
-  errorJsChart,
-  errorJsOverview,
-  errorJsToplist,
-} from '../../services/error'
 import { ApiData } from '../../utils/response'
 import { validateDateRange, validateTimeRange } from '../../utils/validate'
+import Topic from '../../services/topic'
 
 const errorJsRouter = new Router()
 
@@ -20,7 +16,7 @@ errorJsRouter.get('/overview', async (ctx) => {
     return
   }
 
-  ctx.body = await errorJsOverview({
+  ctx.body = await Topic.errorJsOverview({
     projectCode,
     projectEnv,
     startDate: dayjs(startDate),
@@ -38,7 +34,7 @@ errorJsRouter.get('/chart', async (ctx) => {
     return
   }
 
-  ctx.body = await errorJsChart({
+  ctx.body = await Topic.errorJsChart({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -56,7 +52,7 @@ errorJsRouter.get('/toplist', async (ctx) => {
     return
   }
 
-  ctx.body = await errorJsToplist({
+  ctx.body = await Topic.errorJsToplist({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

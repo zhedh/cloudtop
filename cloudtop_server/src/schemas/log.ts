@@ -9,8 +9,8 @@ class Log extends Model {
   declare reportTime: number // 上报时间
   declare date: number // 默认上报时间，其次取服务器时间
   declare env: string // 环境 -> prod
-  declare ext?: string // 扩展字段，不要超过100个字符 -> String | JSON.stringify(ext)
 
+  declare ct: string // 网络类型
   declare httpReferer: string // 页面Referer
   declare httpUserAgent: string // 浏览器UserAgent
   declare browser: string // 浏览器类型 -> safari
@@ -27,8 +27,10 @@ class Log extends Model {
   declare ipCountryId: string // 国家ID -> CN
   declare ipRegion: string // 省级行政区 -> 北京市
   declare ipRegionId: string // 省级行政区ID -> 110000
+  declare ipRegionName: string // 省级行政区 -> 北京市
   declare ipCity: string // 城市名称 -> 北京市
   declare ipCityId: string // 城市ID -> 110100
+  declare ipCityName: string // 城市名称 -> 北京市
   declare remoteAddr: string // 客户端IP地址
 
   declare sid: string // Session ID
@@ -39,6 +41,13 @@ class Log extends Model {
 
   declare page: string // 页面 -> testing
   declare pvId: string // PV ID -> bkkRsrej4OFdv2d4yeb37Xb2R2Xp
+
+  /**
+   * 扩展数据
+   */
+  declare loginId?: string // 用户登录ID，可以是手机号、邮箱等，根据应用自定义
+  declare ext?: string // 扩展字段，不要超过100个字符 -> String | JSON.stringify(ext)
+
 
   /**
    * PV 数据
@@ -127,9 +136,9 @@ Log.init(
       type: DataTypes.STRING(32),
       allowNull: false,
     },
-    ext: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+
+    ct: {
+      type: DataTypes.STRING(16),
       defaultValue: '',
     },
     httpReferer: {
@@ -205,6 +214,11 @@ Log.init(
       defaultValue: '',
       field: 'ip_region_id',
     },
+    ipRegionName: {
+      type: DataTypes.STRING(32),
+      defaultValue: '',
+      field: 'ip_region_name',
+    },
     ipCity: {
       type: DataTypes.STRING(32),
       defaultValue: '',
@@ -214,6 +228,11 @@ Log.init(
       type: DataTypes.STRING(32),
       defaultValue: '',
       field: 'ip_city_id',
+    },
+    ipCityName: {
+      type: DataTypes.STRING(32),
+      defaultValue: '',
+      field: 'ip_city_name',
     },
     remoteAddr: {
       type: DataTypes.STRING(32),
@@ -239,6 +258,17 @@ Log.init(
     },
     vp: {
       type: DataTypes.STRING(16),
+      defaultValue: '',
+    },
+
+    loginId: {
+      type: DataTypes.STRING(64),
+      field: 'login_id',
+      defaultValue: '',
+    },
+    ext: {
+      type: DataTypes.TEXT,
+      allowNull: false,
       defaultValue: '',
     },
 
