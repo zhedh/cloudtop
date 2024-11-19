@@ -5,9 +5,9 @@ const getArrayItemKey = <T extends Record<string, any> = any>(item: T, field: st
 }
 
 /**
- * 数组B中的对象合并到数组A
- * @param arr1 数组A
- * @param arr2 数组B
+ * 数组2中的对象合并到数组1
+ * @param arr1 数组1
+ * @param arr2 数组2
  * @param field 匹配字段
  * @returns 
  */
@@ -57,4 +57,18 @@ export const arrayClassifyByField = <T extends Record<string, any> = any>(arr1: 
       [prop]: map.get(key) || []
     }
   })
+}
+
+/**
+ * 根据间隔生成数组
+ * @param min 
+ * @param max 
+ * @param interval 
+ * @returns 
+ */
+export const arrayGenerateOnInterval = (min: number, max: number, interval: number) => {
+  const diff = max - min
+  const length = Math.ceil(diff / interval)
+
+  return Array.from({ length }).map((_, index) => min + index * interval)
 }

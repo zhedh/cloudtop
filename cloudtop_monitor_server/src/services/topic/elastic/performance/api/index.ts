@@ -1,4 +1,4 @@
-export * from './performance_api_stat'
+export * from './performance_api_stats'
 export * from './performance_api_data'
 export * from './performance_api_list'
 export * from './performance_api_distribution'

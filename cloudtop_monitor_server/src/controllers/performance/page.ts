@@ -1,15 +1,8 @@
 import Router from 'koa-router'
-import {
-  performancePageData,
-  performancePageList,
-  performancePageRatio,
-  performancePageStat,
-  performancePageTerritory,
-  performancePageWaterfall,
-} from '../../services/performance'
 import { ApiData } from '../../utils/response'
 import dayjs from 'dayjs'
 import { timeRangeValidate } from '../hepler'
+import Topic from '../../services/topic'
 
 const performancePageRouter = new Router()
 
@@ -25,7 +18,7 @@ performancePageRouter.get('/stat', async (ctx) => {
   const { projectCode, projectEnv } = ctx.state
   const { startTime, endTime } = ctx.request.query as Record<string, any>
 
-  ctx.body = await performancePageStat({
+  ctx.body = await Topic.performancePageStats({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -40,7 +33,7 @@ performancePageRouter.get('/data', async (ctx) => {
     any
   >
 
-  ctx.body = await performancePageData({
+  ctx.body = await Topic.performancePageData({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -58,7 +51,7 @@ performancePageRouter.get('/list', async (ctx) => {
     return
   }
 
-  ctx.body = await performancePageList({
+  ctx.body = await Topic.performancePageList({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -76,7 +69,7 @@ performancePageRouter.get('/waterfall', async (ctx) => {
     return
   }
 
-  ctx.body = await performancePageWaterfall({
+  ctx.body = await Topic.performancePageWaterfall({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -98,7 +91,7 @@ performancePageRouter.get('/ratio', async (ctx) => {
     return
   }
 
-  ctx.body = await performancePageRatio({
+  ctx.body = await Topic.performancePageRatio({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -111,7 +104,7 @@ performancePageRouter.get('/territory', async (ctx) => {
   const { projectCode, projectEnv } = ctx.state
   const { startTime, endTime } = ctx.request.query as Record<string, any>
 
-  ctx.body = await performancePageTerritory({
+  ctx.body = await Topic.performancePageTerritory({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

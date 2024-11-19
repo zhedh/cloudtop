@@ -1,9 +1,9 @@
-import { count } from '../../../database/elastic'
-import { StatParams } from '../../../types'
-import { LogType } from '../../../types/log'
-import { calculateGrowthRate, calculateRatio } from '../../../utils/calculate'
-import { ElasticBoolMust } from '../../../utils/elastic_bool'
-import { ApiData } from '../../../utils/response'
+import { count } from '../../../../../database/elastic'
+import { StatParams } from '../../../../../types'
+import { LogType } from '../../../../../types/log'
+import { calculateGrowthRate, calculateRatio } from '../../../../../utils/calculate'
+import { ElasticBoolMust } from '../../../../../utils/elastic_bool'
+import { ApiData } from '../../../../../utils/response'
 
 const getStats = ({
   projectCode,
@@ -53,7 +53,7 @@ const getStats = ({
   return count({ query, aggs })
 }
 
-export const performanceApiStat = async (params: StatParams) => {
+export const performanceApiStats = async (params: StatParams) => {
   const [r1, r2] = await Promise.all([
     getStats(params),
     getStats({
@@ -76,7 +76,7 @@ export const performanceApiStat = async (params: StatParams) => {
       ratio: calculateGrowthRate(r1.time.value, r2.time.value),
     },
     {
-      load: 'success',
+      type: 'success',
       value: calculateRatio(r1.success.doc_count, r1.total),
       ratio:
         calculateRatio(r1.success.doc_count, r1.total) -

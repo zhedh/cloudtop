@@ -1,9 +1,9 @@
-import { count } from '../../../database/elastic'
-import { StatParams } from '../../../types'
-import { LogType } from '../../../types/log'
-import { calculateGrowthRate } from '../../../utils/calculate'
-import { ElasticBoolMust } from '../../../utils/elastic_bool'
-import { ApiData } from '../../../utils/response'
+import { count } from '../../../../../database/elastic'
+import { StatParams } from '../../../../../types'
+import { LogType } from '../../../../../types/log'
+import { calculateGrowthRate } from '../../../../../utils/calculate'
+import { ElasticBoolMust } from '../../../../../utils/elastic_bool'
+import { ApiData } from '../../../../../utils/response'
 
 const getStats = ({
   projectCode,
@@ -51,7 +51,7 @@ const getStats = ({
   return count({ query, aggs })
 }
 
-export const performancePageStat = async (params: StatParams) => {
+export const performancePageStats = async (params: StatParams) => {
   const [r1, r2] = await Promise.all([
     getStats(params),
     getStats({

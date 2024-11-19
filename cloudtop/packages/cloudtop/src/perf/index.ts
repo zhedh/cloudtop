@@ -36,10 +36,10 @@ const getLcp = () =>
   new Promise((resolve) => {
     const observer = new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries()
-      const lastEntry = entries[entries.length - 1] || {}
-      // @ts-ignore
+      const lastEntry = (entries[entries.length - 1] || {}) as Record<string,any>
       resolve(lastEntry.renderTime || lastEntry.loadTime)
     })
+
     observer.observe({ entryTypes: ['largest-contentful-paint'] })
   })
 

@@ -1,9 +1,8 @@
-import { count } from '../../../database/elastic'
-import { StatParams } from '../../../types'
-import { LogType } from '../../../types/log'
-import { calculateRatio } from '../../../utils/calculate'
-import { ElasticBoolMust } from '../../../utils/elastic_bool'
-import { ApiData } from '../../../utils/response'
+import { count } from '../../../../../database/elastic'
+import { StatParams } from '../../../../../types'
+import { LogType } from '../../../../../types/log'
+import { ElasticBoolMust } from '../../../../../utils/elastic_bool'
+import { ApiData } from '../../../../../utils/response'
 
 const getData = ({
   projectCode,
@@ -14,7 +13,7 @@ const getData = ({
   const must = new ElasticBoolMust()
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
-    .addMatch('type', LogType.API)
+    .addMatch('type', LogType.PERF)
     .addRange('date', {
       gte: +startTime,
       lte: +endTime,
@@ -31,15 +30,12 @@ const getData = ({
       terms: {
         field: 'ip_region_name.keyword',
         size: 1000,
+        order: {
+          'load.avg': 'desc',
+        },
       },
       aggs: {
-        success: {
-          filter: {
-            term: {
-              success: 1, // 0=失败，1=成功
-            },
-          },
-        },
+        load: { stats: { field: 'load' } },
       },
     },
   }
@@ -47,14 +43,13 @@ const getData = ({
   return count({ query, aggs })
 }
 
-export const performanceApiTerritory = async (params: StatParams) => {
+export const performancePageTerritory = async (params: StatParams) => {
   const { stats } = await getData(params)
 
   const result = stats.buckets.map((i: Record<string, any>) => ({
     key: i.key,
     count: i.doc_count,
-    success: i.success.doc_count,
-    successRatio: calculateRatio(i.success.doc_count, i.doc_count),
+    load: i.load.avg,
   }))
 
   return new ApiData(0, 'OK', result)

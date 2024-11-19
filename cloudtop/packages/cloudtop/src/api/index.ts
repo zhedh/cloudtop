@@ -3,16 +3,17 @@ import { apiEvent } from './helper'
 import './fetch'
 import './xhr'
 
-const getDuration = (name: string): number => {
-  const list = window.performance.getEntriesByName(name)
-  const entry = list[list.length - 1]
-  return entry?.duration
-}
+// const getDuration = (name: string): number => {
+//   const list = window.performance.getEntriesByName(name)
+//   console.log('list::: ', window.performance.getEntries())
+//   const entry = list[list.length - 1]
+//   return entry?.duration
+// }
 
 export const reportApi = (callback: LogCallback, baseURL: string) => {
   apiEvent.addListener(async (data: ApiLogData) => {
     const { api } = data
-    const time = getDuration(api)
+    // const time = getDuration(api)
 
     /**
      * 监控请求不上报
@@ -22,7 +23,6 @@ export const reportApi = (callback: LogCallback, baseURL: string) => {
     callback({
       type: LogType.API,
       ...data,
-      time: time,
     })
   })
 }

@@ -1,15 +1,8 @@
 import Router from 'koa-router'
-import {
-  performanceApiStat,
-  performanceApiData,
-  performanceApiList,
-  performanceApiDistribution,
-  performanceApiTerminal,
-  performanceApiTerritory,
-} from '../../services/performance'
 import { ApiData } from '../../utils/response'
 import dayjs from 'dayjs'
 import { timeRangeValidate } from '../hepler'
+import Topic from '../../services/topic'
 
 const performanceApiRouter = new Router()
 
@@ -25,7 +18,7 @@ performanceApiRouter.get('/stat', async (ctx) => {
   const { projectCode, projectEnv } = ctx.state
   const { startTime, endTime } = ctx.request.query as Record<string, any>
 
-  ctx.body = await performanceApiStat({
+  ctx.body = await Topic.performanceApiStats({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -40,7 +33,7 @@ performanceApiRouter.get('/data', async (ctx) => {
     any
   >
 
-  ctx.body = await performanceApiData({
+  ctx.body = await Topic.performanceApiData({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -58,7 +51,7 @@ performanceApiRouter.get('/list', async (ctx) => {
     return
   }
 
-  ctx.body = await performanceApiList({
+  ctx.body = await Topic.performanceApiList({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -74,7 +67,7 @@ performanceApiRouter.get('/distribution', async (ctx) => {
     any
   >
 
-  ctx.body = await performanceApiDistribution({
+  ctx.body = await Topic.performanceApiDistribution({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -96,7 +89,7 @@ performanceApiRouter.get('/terminal', async (ctx) => {
     return
   }
 
-  ctx.body = await performanceApiTerminal({
+  ctx.body = await Topic.performanceApiTerminal({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -109,7 +102,7 @@ performanceApiRouter.get('/territory', async (ctx) => {
   const { projectCode, projectEnv } = ctx.state
   const { startTime, endTime } = ctx.request.query as Record<string, any>
 
-  ctx.body = await performanceApiTerritory({
+  ctx.body = await Topic.performanceApiTerritory({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
