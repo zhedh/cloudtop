@@ -27,15 +27,15 @@ while IFS='=' read -r key value; do
 
   if grep -q "^$key=" $CLOUDTOP_MONITOR_ENV; then
     # 如果存在，使用 sed 命令替换 value
-    sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_ENV
+    sed "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_ENV
   fi
 
   if grep -q "^$key=" $CLOUDTOP_MONITOR_SERVER_ENV; then
-    sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_SERVER_ENV
+    sed "s|^$key=.*|$key=$value|" $CLOUDTOP_MONITOR_SERVER_ENV
   fi
 
   if grep -q "^$key=" $CLOUDTOP_SERVER_ENV; then
-    sed -i "" "s|^$key=.*|$key=$value|" $CLOUDTOP_SERVER_ENV
+    sed "s|^$key=.*|$key=$value|" $CLOUDTOP_SERVER_ENV
   fi
    
 done < $CLOUDTOP_ENV
