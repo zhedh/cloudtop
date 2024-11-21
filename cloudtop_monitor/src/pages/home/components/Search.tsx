@@ -30,7 +30,7 @@ const Search: React.FC<Props> = (props) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
-    props.onSearch(INITIAL_VALUES)
+    props.onSearch({...INITIAL_VALUES})
   }, [])
 
   const handleCreate = useCallback(() => {
