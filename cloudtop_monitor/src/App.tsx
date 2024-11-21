@@ -6,6 +6,8 @@ import { NotificationContext, ProjectContext } from './store'
 import { Project } from './types/project'
 import { storageGet, storageSet } from './utils/storage'
 
+declare const window: any
+
 function App() {
   const location = useLocation()
   const [api, contextHolder] = notification.useNotification()
@@ -14,6 +16,7 @@ function App() {
   )
 
   useEffect(() => {
+    window.cloudtop.routeChange(location.pathname)
     // cloudtop.routeChange(location.pathname)
   }, [location.pathname])
 
