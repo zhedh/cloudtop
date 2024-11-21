@@ -10,12 +10,14 @@ const getPerf = () => {
     /**
      * 阶段性指标
      */
+    redirectTime: timing.redirectEnd - timing.redirectStart,
+    appDns: timing.domainLookupStart - timing.fetchStart,
     dns: timing.domainLookupEnd - timing.domainLookupStart,
     tcp: timing.connectEnd - timing.connectStart,
     ssl: timing.connectEnd - timing.secureConnectionStart, // SSL连接耗时
     ttfb: timing.responseStart - timing.requestStart, // 网络请求耗时。等待接收响应的第一个字节所花费的时间
     trans: timing.responseEnd - timing.responseStart, // 数据传输耗时
-    dom: timing.domInteractive - timing.redirectEnd, // DOM解析耗时
+    dom: timing.domComplete - timing.responseEnd, // DOM解析耗时
     res: timing.loadEventEnd - timing.domContentLoadedEventEnd, // 资源加载耗时（load事件耗时）
     /**
      * 关键性指标
@@ -55,3 +57,5 @@ export const reportPerf = (callback: LogCallback) => {
     true
   )
 }
+
+// 0 + 1.8000000715255737 + 0 + 0.2999999523162842 + 3.600000023841858 + 0.30000007152557373 + 89 + 4.300000071525574

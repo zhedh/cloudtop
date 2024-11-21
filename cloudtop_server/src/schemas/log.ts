@@ -82,7 +82,9 @@ class Log extends Model {
   /**
    * Perf Error 数据
    */
-  declare dns: number // DNS连接耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  declare redirectTime: number // 重定向耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  declare appDns: number // APP_DNS耗时
+  declare dns: number // DNS连接耗时
   declare tcp: number // TCP连接耗时
   declare ssl: number // SSL连接耗时
   declare ttfb: number // 网络请求耗时。等待接收响应的第一个字节所花费的时间
@@ -360,6 +362,16 @@ Log.init(
       defaultValue: '',
     },
 
+    redirectTime: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      field: 'redirect_time',
+    },
+    appDns: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      field: 'app_dns',
+    },
     dns: {
       type: DataTypes.INTEGER,
       allowNull: true
