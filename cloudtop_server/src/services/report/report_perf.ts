@@ -1,6 +1,5 @@
 import { Context } from 'koa'
 import { ApiData } from '../../utils/response'
-import { dataKeyToLine } from '../../utils/format'
 import { transformCommon } from './util'
 import { PerfData } from '../../types/log'
 import { logPool } from '../logstore'
@@ -8,6 +7,8 @@ import { logPool } from '../logstore'
 const transform = (ctx: Context, data: Record<string, any>): PerfData => {
   return {
     ...transformCommon(ctx, data),
+    redirectTime: data.redirectTime ?? 0,
+    appDns: data.appDns ?? 0,
     dns: data.dns ?? 0, // DNS连接耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
     tcp: data.tcp ?? 0, // TCP连接耗时
     ssl: data.ssl ?? 0, // SSL连接耗时

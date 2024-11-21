@@ -81,6 +81,8 @@ export interface ResourceErrorData extends CommonData {
 }
 
 export interface PerfData extends CommonData {
+  redirectTime: number // 重定向耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  appDns: number // 应用程序缓存的DNS解析耗时
   type: LogType.PERF // 日志类型
   dns: number // DNS连接耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
   tcp: number // TCP连接耗时
