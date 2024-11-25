@@ -19,7 +19,7 @@ const getRecords = async ({
   projectEnv,
   startTime,
   endTime,
-  sort = 'date',  // TODO 后续使用reportTime
+  sort = 'reportTime', 
   order = 'desc'
 }: ErrorApiTopListParams) => {
 
@@ -40,7 +40,8 @@ const getRecords = async ({
       [Sequelize.fn('COUNT', Sequelize.col('id')), 'count'],
       [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('uid'))), 'userCount'],
       [Sequelize.fn('MIN', Sequelize.col('report_time')), 'minTime'],
-      [Sequelize.fn('MAX', Sequelize.col('report_time')), 'maxTime']
+      [Sequelize.fn('MAX', Sequelize.col('report_time')), 'maxTime'],
+      [Sequelize.fn('MAX', Sequelize.col('report_time')), 'reportTime'], // 用于根据最新时间排序
     ],
     group: ['api', 'status'],
     raw: true,

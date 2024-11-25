@@ -19,7 +19,7 @@ const getHistogram = (data: HistogramParams) => {
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.PV)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -31,18 +31,9 @@ const getHistogram = (data: HistogramParams) => {
   }
 
   const aggs = {
-    // count: {
-    //   value_count: {
-    //     field: 'pv_id.keyword',
-    //   },
-    // },
-
-    // terms: {
-    //   field: 'uid.keyword',
-    // },
     histogram: {
       date_histogram: {
-        field: 'date',
+        field: 'report_time',
         interval: '60m',
         format: 'yyyy-MM-dd HH:mm:ss',
         time_zone: '+08:00',
@@ -59,18 +50,6 @@ const getHistogram = (data: HistogramParams) => {
           },
         },
       },
-
-      // range: {
-      //   field: 'date',
-      //   ranges: [
-      //     // { to: +startDate },
-      //     { from: +startDate, to: +endDate + 1 },
-      //     { from: +dayBeforeStartDate, to: +dayBeforeendDate + 1 },
-      //     { from: +weekBeforeStartDate, to: +weekBeforeendDate + 1 },
-
-      //     // { from: +endDate },
-      //   ],
-      // },
     },
   }
 

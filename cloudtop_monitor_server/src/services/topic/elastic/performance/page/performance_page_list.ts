@@ -22,7 +22,7 @@ const getList = ({
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.PERF)
     .addMatch('page', { query: page, fuzziness: 'auto' })
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })

@@ -12,7 +12,7 @@ const getData = ({
   const must = new ElasticBoolMust()
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })

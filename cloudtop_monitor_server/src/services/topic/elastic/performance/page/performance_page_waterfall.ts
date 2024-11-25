@@ -20,7 +20,7 @@ const getWaterfall = ({
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.PERF)
     .addMatch('page.keyword', page)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })

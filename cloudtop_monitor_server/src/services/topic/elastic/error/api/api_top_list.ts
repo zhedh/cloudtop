@@ -2,6 +2,7 @@ import { Dayjs } from 'dayjs'
 import { LogType } from '../../../../../types/log'
 import { search } from '../../../../../database/elastic'
 import { ApiData } from '../../../../../utils/response'
+import { dataKeyToLine } from '../../../../../utils/format'
 
 export interface ErrorApiTopListParams {
   projectCode: string
@@ -35,7 +36,7 @@ const getRecords = ({
         },
         {
           range: {
-            date: {
+            report_time: {
               gte: +startTime,
               lte: +endTime,
             },
@@ -52,7 +53,7 @@ const getRecords = ({
           source: "doc['api.keyword'].value + '-' + doc['status'].value",
           lang: 'painless',
         },
-        size: 10,
+        size: 100,
       },
       aggs: {
         uv: {
@@ -62,17 +63,17 @@ const getRecords = ({
         },
         min_time: {
           min: {
-            field: 'date',
+            field: 'report_time',
           },
         },
         max_time: {
           max: {
-            field: 'date',
+            field: 'report_time',
           },
         },
         docs: {
           top_hits: {
-            sort: [{ date: { order: 'desc' } }],
+            sort: [{ report_time: { order: 'desc' } }],
             size: 100,
             _source: ['api', 'status', 'report_time', 'date', 'src', 'uid'],
           },
@@ -85,7 +86,7 @@ const getRecords = ({
 }
 
 export const errorApiTopList = async (params: ErrorApiTopListParams) => {
-  const { sort = 'date', order = 'desc' } = params
+  let { sort = 'date', order = 'desc' } = params
   const { aggregations } = await getRecords(params)
   const { buckets = [] } = aggregations.stats
 
@@ -109,13 +110,15 @@ export const errorApiTopList = async (params: ErrorApiTopListParams) => {
       count: b.doc_count,
       userCount: b.uv.value,
       timeRange: [b.min_time.value, b.max_time.value],
+      reportTime: b.max_time.value, // 最新上报时间
       records,
     }
   })
 
+  // sort = dataKeyToLine(sort)
   const result = list.sort((a: Record<string, any>, b: Record<string, any>) =>
     order === 'desc' ? b[sort] - a[sort] : a[sort] - b[sort]
   )
 
-  return new ApiData(0, '数据查询成功', result)
+  return new ApiData(0, '数据查询成功', result.slice(0, 10))
 }
