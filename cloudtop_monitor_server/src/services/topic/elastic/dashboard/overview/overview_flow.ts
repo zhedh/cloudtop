@@ -22,7 +22,7 @@ const getCardinality = ({
   const must = new ElasticBoolMust()
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -56,12 +56,6 @@ const getCardinality = ({
 }
 
 export const overviewFlow = async (data: StatParams) => {
-  // return new ApiData(
-  //   0,
-  //   '获取流量数据成功',
-  //   await getCardinality(projectCode, [startDate, endDate])
-  // )
-
   const [f1, f2] = await Promise.all([
     getCardinality(data),
     getCardinality({

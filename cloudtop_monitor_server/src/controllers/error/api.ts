@@ -57,7 +57,7 @@ errorApiRouter.get('/top/list', async (ctx) => {
     return
   }
 
-  if (sort && !['date', 'count'].includes(sort)) {
+  if (sort && !['reportTime', 'count'].includes(sort)) {
     ctx.body = new ApiData(400400, 'sort 参数不正确！')
     return
   }

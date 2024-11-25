@@ -15,7 +15,7 @@ const getStats = ({
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.API)
     .addMatch('success', 0)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })

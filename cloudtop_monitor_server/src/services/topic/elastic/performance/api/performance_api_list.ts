@@ -28,7 +28,7 @@ const getList = ({
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.API)
     .addMatch('api', { query: api, fuzziness: 'auto' })
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -80,9 +80,9 @@ const getList = ({
 
         docs: {
           top_hits: {
-            sort: [{ date: { order: 'desc' } }],
+            sort: [{ report_time: { order: 'desc' } }],
             size: 1,
-            _source: ['src', 'date', 'api'],
+            _source: ['src', 'report_time', 'date', 'api'],
           },
         },
       },
@@ -99,9 +99,9 @@ export const performanceApiList = async (params: PerformanceApiListParams) => {
     const successCount = i.doc_count - i.error.doc_count
     const source = getHitsSource(i.docs)
 
-    const [first] = source || []
-    const reg = /^https?:\/\/[^\?\#\/]*/
-    const [origin, date] = reg.exec(first?.src || '') || []
+    // const [first] = source || []
+    // const reg = /^https?:\/\/[^\?\#\/]*/
+    // const [origin, date] = reg.exec(first?.src || '') || []
 
     return {
       api: i.key,
@@ -113,8 +113,8 @@ export const performanceApiList = async (params: PerformanceApiListParams) => {
       slowRatio: calculateRatio(i.slow.doc_count, i.doc_count),
       errorCount: i.error.doc_count,
       errorUserCount: i.error.uv.value,
-      origin: origin,
-      date: dayjs(date).format('YYYY-MM-DD HH:mm:ss'),
+      // origin: origin,
+      // date: dayjs(date).format('YYYY-MM-DD HH:mm:ss'),
       source,
     }
   })

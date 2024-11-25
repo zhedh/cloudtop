@@ -14,7 +14,7 @@ const getHistogram = ({
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.RESOURCE_ERROR)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })

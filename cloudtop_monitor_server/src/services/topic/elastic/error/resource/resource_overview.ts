@@ -14,7 +14,7 @@ const getIndicator = ({
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.RESOURCE_ERROR)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startDate.startOf('date'),
       lte: +endDate.endOf('date'),
     })
@@ -27,7 +27,7 @@ const getIndicator = ({
   const aggs = {
     result: {
       date_histogram: {
-        field: 'date',
+        field: 'report_time',
         interval: 'day',
         format: 'yyyy-MM-dd',
         time_zone: '+08:00',

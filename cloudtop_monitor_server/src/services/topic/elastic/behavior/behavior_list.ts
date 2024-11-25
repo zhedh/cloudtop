@@ -8,11 +8,12 @@ interface BehaviorQueryData extends StatParams, PaginationParams {
 }
 
 const getLogs = async (data: BehaviorQueryData) => {
+  console.log('data.keyword:::: ', data.keyword)
   const { pageSize = 20, current = 1 } = data
   const must = new ElasticBoolMust()
     .addMatch('pid', data.projectCode)
     .addMatch('env', data.projectEnv)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +data.startTime,
       lte: +data.endTime,
     })
@@ -23,12 +24,12 @@ const getLogs = async (data: BehaviorQueryData) => {
       should: [
         {
           match: {
-            uid: data.keyword
+            uid: data.keyword || ''
           }
         },
         {
           match: {
-            loginId: data.keyword
+            loginId: data.keyword || ''
           }
         }
       ],
@@ -49,7 +50,7 @@ const getLogs = async (data: BehaviorQueryData) => {
 
   const sort = [
     {
-      date: {
+      report_time: {
         order: 'desc',
       },
     },
@@ -63,8 +64,11 @@ const getLogs = async (data: BehaviorQueryData) => {
 }
 
 export const behaviorList = async (data: BehaviorQueryData) => {
+  console.log('data::: ', data)
   const { aggregations, records } = await getLogs(data)
   const { value } = aggregations.count ?? {}
+
+  console.log('aggregations::: ', aggregations)
 
   return new ApiData(0, '查询项目列表成功', {
     records,

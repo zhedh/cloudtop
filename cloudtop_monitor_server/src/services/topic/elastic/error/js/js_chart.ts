@@ -15,7 +15,7 @@ const getHistogram = ({
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.ERROR)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -28,7 +28,7 @@ const getHistogram = ({
   const aggs = {
     result: {
       date_histogram: {
-        field: 'date',
+        field: 'report_time',
         interval: '120m',
         format: 'yyyy-MM-dd HH',
         time_zone: '+08:00',

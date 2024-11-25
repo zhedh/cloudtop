@@ -21,4 +21,4 @@ node_modules/
 
 # Bundle
 esm
-dist
+# dist # jsdelivr 使用，无需忽略

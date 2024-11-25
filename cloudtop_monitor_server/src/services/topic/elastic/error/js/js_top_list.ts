@@ -14,7 +14,7 @@ const getRecords = ({
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
     .addMatch('type', LogType.ERROR)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -45,7 +45,7 @@ const getRecords = ({
 
   const sort = [
     {
-      date: {
+      report_time: {
         order: 'desc',
       },
     },

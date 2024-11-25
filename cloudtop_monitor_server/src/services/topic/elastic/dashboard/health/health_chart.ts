@@ -30,7 +30,7 @@ const getData = ({
   const must = new ElasticBoolMust()
     .addMatch('pid', projectCode)
     .addMatch('env', projectEnv)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +startTime,
       lte: +endTime,
     })
@@ -51,7 +51,7 @@ const getData = ({
   const aggs = {
     histogram: {
       date_histogram: {
-        field: 'date',
+        field: 'report_time',
         interval: '30m',
         format: 'yyyy-MM-dd HH:mm:ss',
         time_zone: '+08:00',

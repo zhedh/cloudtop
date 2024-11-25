@@ -33,7 +33,7 @@ const getStat = ({ projectCode, projectEnv, startTime, endTime }: ProjectStatPar
         },
         {
           range: {
-            date: {
+            report_time: {
               gte: +startTime,
               lte: +endTime,
             },
@@ -86,7 +86,7 @@ const getStat = ({ projectCode, projectEnv, startTime, endTime }: ProjectStatPar
 
   const sort = [
     {
-      date: {
+      report_time: {
         order: 'desc',
       },
     },

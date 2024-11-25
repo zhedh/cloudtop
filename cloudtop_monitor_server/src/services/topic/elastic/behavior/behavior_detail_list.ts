@@ -16,7 +16,7 @@ const getLogs = async (data: BehaviorDetailQueryData) => {
     .addMatch('env', data.projectEnv)
     .addMatch('type', data.type)
     .addMatch('uid', data.uid)
-    .addRange('date', {
+    .addRange('report_time', {
       gte: +data.startTime,
       lte: +data.endTime,
     })
@@ -29,7 +29,7 @@ const getLogs = async (data: BehaviorDetailQueryData) => {
 
   const sort = [
     {
-      date: {
+      report_time: {
         order: 'asc',
       },
     },
