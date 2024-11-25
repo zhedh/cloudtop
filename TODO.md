@@ -1,7 +1,5 @@
 # 待办事项
 
-+ cloudtop_monitor 项目创建成功列表不刷新
-
 **_ JS 错误分类 category 记录值不对 _**
 
 应用归属：
