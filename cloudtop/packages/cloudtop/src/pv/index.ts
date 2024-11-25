@@ -9,7 +9,7 @@ const transform = () => {
     de: document.characterSet,
     dpr: String(window.devicePixelRatio),
     lang: document.documentElement.lang,
-    url: window.location.href, // 页面链接
+    // url: window.location.href, // 页面链接
   }
 
   return pvData

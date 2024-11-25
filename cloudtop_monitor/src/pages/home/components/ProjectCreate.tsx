@@ -40,6 +40,7 @@ const ProjectCreate: React.FC<{ onCreate: () => void }> = React.memo(
     const handleCancel = () => {
       setVisible(false)
       form.resetFields()
+      // props.onCreate()
     }
 
     return (

@@ -6,12 +6,19 @@ export enum LogType {
   API = 'api',
 }
 
+export enum LogEnv {
+  PRODUCTION = 'production',
+  STAGING = 'staging',
+  TESTING = 'testing',
+  DEVELOPMENT = 'development',
+}
+
 export interface CommonData {
   pid: string // 应用ID或应用名称、标识应用唯一值
   type: LogType // 日志类型
   reportTime?: number // 上报时间
   date: number // 默认上报时间，其次取服务器时间
-  env: string // 环境 -> prod
+  env: LogEnv // 环境 -> prod
   ext?: string // 扩展字段，不要超过100个字符 -> String | JSON.stringify(ext)
 
   clientIp?: string
@@ -41,7 +48,7 @@ export interface CommonData {
 
   sid: string // Session ID
   sr: string // 屏幕分辨率
-  src: string // 被监控目标地址
+  url: string // 被监控目标地址，页面地址
   uid: string // 用户ID
   vp: string // 页面大小
 
@@ -78,6 +85,8 @@ export interface ResourceErrorData extends CommonData {
 }
 
 export interface PerfData extends CommonData {
+  redirectTime: number // 重定向耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  appDns: number // 应用程序缓存的DNS解析耗时
   dns: number // DNS连接耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
   tcp: number // TCP连接耗时
   ssl: number // SSL连接耗时
@@ -94,8 +103,7 @@ export interface PerfData extends CommonData {
   lcp: number // 最大内容绘制时间
 }
 
-export interface ApiLogData {
-  type?: LogType.API // 日志类型
+export interface ApiLogData extends CommonData {
   api: string // API地址
   success: 1 | 0 // 请求是否成功 1：成功 2：失败
   status: number // 请求返回状态码

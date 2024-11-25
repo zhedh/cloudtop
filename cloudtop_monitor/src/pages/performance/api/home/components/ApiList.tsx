@@ -121,7 +121,7 @@ function ApiList(props: Props) {
   return (
     <>
       <Wrapper
-        title="页面性能列表"
+        title="接口性能列表"
         actions={
           <Search
             placeholder="请输入页面PAGE"

@@ -1,6 +1,6 @@
 {
   "name": "cloudtop",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "cloudtop",
   "license": "MIT",
   "type": "module",
@@ -10,6 +10,10 @@
   "files": [
     "dist",
     "esm"
+  ],
+  "keywords": [
+    "cloudtop",
+    "cloudtop_utils"
   ],
   "scripts": {
     "dev": "tsc --watch -p tsconfig.json",

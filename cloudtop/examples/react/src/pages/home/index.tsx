@@ -8,65 +8,96 @@ function Home() {
     const uuid = generateUUID()
     console.log('uuid: ', uuid)
 
-    fetch(
-      'https://cloudtop-monitor-server-staging.retailaim.com/dashboard/overview/flo?projectCode=cloudshop_admin&date=2023-11-01',
+    const http2 = () => {
+      // WARNING: For POST requests, body is set to null by browsers.
+      const data = JSON.stringify({
+        goodsName: '辛巴克',
+        goodsPrice: '2000',
+        screenshot: [
+          'https://netresource.oss-cn-shanghai.aliyuncs.com/business/cloudshop-system/0acc01083af30ea0761fbc800_222.jpeg',
+        ],
+      })
+
+      const xhr = new XMLHttpRequest()
+      xhr.withCredentials = true
+
+      xhr.addEventListener('readystatechange', function () {
+        if (this.readyState === 4) {
+          console.log(this.responseText)
+        }
+      })
+
+      xhr.open(
+        'POST',
+        'https://cloudshop-system-server-testing.retailaim.com//tongs/goods/create'
+      )
+      xhr.setRequestHeader('Api-Key', '0f9dbeb8-1fd9-4f0e-8b52-03edfb7669c1')
+      xhr.setRequestHeader('Content-Type', 'application/json')
+
+      xhr.send(data)
+    }
+
+    http2()
+
+    setTimeout(()=> {
+      http2()
+    }, 10)
+
+    const http1 = () => {
+      const myHeaders = new Headers()
+      myHeaders.append('Api-Key', '0f9dbeb8-1fd9-4f0e-8b52-03edfb7669c1')
+      myHeaders.append('Content-Type', 'application/json')
+
+      const raw = JSON.stringify({
+        goodsName: '辛巴克',
+        goodsPrice: '2000',
+        screenshot: [
+          'https://netresource.oss-cn-shanghai.aliyuncs.com/business/cloudshop-system/0acc01083af30ea0761fbc800_222.jpeg',
+        ],
+      })
+
+      fetch(
+        'https://cloudshop-system-server-testing.retailaim.com/tongs/goods/create',
+        {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow',
+        }
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error))
+    }
+
+    http1()
+
+    window.fetch(
+      'https://cloudshop-server-dev.retailaim.com/wx-corp/customer-service/messages/999999',
       {
         headers: {
-          accept: 'application/json, text/plain, */*',
-          'accept-language': 'zh-CN,zh;q=0.9',
-          'sec-ch-ua':
-            '"Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"',
-          'sec-ch-ua-mobile': '?0',
-          'sec-ch-ua-platform': '"macOS"',
-          'sec-fetch-dest': 'empty',
-          'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-site',
+          accept: '*/*',
+          // 'accept-language': 'zh-CN,zh;q=0.9',
+          'agent-app-id': '24',
+          'content-type': 'application/json',
+          // priority: 'u=1, i',
+          // 'sec-ch-ua':
+          //   '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
+          // 'sec-ch-ua-mobile': '?0',
+          // 'sec-ch-ua-platform': '"macOS"',
+          // 'sec-fetch-dest': 'empty',
+          // 'sec-fetch-mode': 'cors',
+          // 'sec-fetch-site': 'same-site',
         },
-        referrer: 'https://cloudtop-monitor-staging.retailaim.com/',
-        referrerPolicy: 'strict-origin-when-cross-origin',
+        // referrer: 'https://cloudshop-system-testing.retailaim.com/',
+        // referrerPolicy: 'strict-origin-when-cross-origin',
         body: null,
         method: 'GET',
-        mode: 'cors',
-        credentials: 'omit',
+        // mode: 'cors',
+        // credentials: 'omit',
       }
-    ).then((res) => console.log(res.json()))
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.onreadystatechange = function () {
-    //   if (xhr.readyState === 4) {
-    //     if (xhr.status === 200) {
-    //       // success
-    //     } else {
-    //       // error
-    //     }
-    //   }
-    // };
-    // xhr.open("GET", "https://cloudtop-monitor-server-staging.retailaim.com/dashboard/overview/flow?projectCode=cloudshop_admin&date=2023-11-01");
-    // xhr.send();
-
-    // export const getClientIp = async () => {
-    //   return new Promise((resolve, reject) => {
-    //     const xhr = new XMLHttpRequest()
-    //     xhr.open('get', 'https://api.ip.sb/geoip')
-    //     xhr.send()
-    //     xhr.onload = (event) => {
-    //       const { status, response, readyState, responseText } =
-    //         event.target as XMLHttpRequest
-
-    //       if (status === 200 && readyState === 4) {
-    //         resolve(JSON.stringify(response))
-    //         return
-    //       }
-    //       reject(responseText)
-    //     }
-
-    //     xhr.onerror = (event) => {
-    //       const { responseText } = event.target as XMLHttpRequest
-    //       reject(responseText)
-    //     }
-    //   })
-    //   // https://api.ip.sb/geoip
-    // }
+    )
+  
   }, [])
 
   return (

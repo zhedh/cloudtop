@@ -10,8 +10,6 @@ import { reportApi } from './report_api'
 export const report = async (ctx: Context, data: Record<string, any> = {}) => {
   const { pid, type } = data
 
-  console.log(data)
-
   // 应用名称校验
   if (!pid) throw new ApiError(4000, '日志应用未定义')
 

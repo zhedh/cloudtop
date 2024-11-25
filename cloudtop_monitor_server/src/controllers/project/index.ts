@@ -4,11 +4,11 @@ import {
   ProjectCreateData,
   projectList,
   ProjectQueryData,
-  projectStat,
 } from '../../services/project'
 import { ProjectType } from '../../types/project'
 import { ApiData } from '../../utils/response'
 import dayjs from 'dayjs'
+import Topic from '../../services/topic'
 
 const projectRouter = new Router()
 
@@ -49,13 +49,18 @@ projectRouter.post('/create', async (ctx) => {
 })
 
 projectRouter.get('/stat', async (ctx) => {
-  let { projectCode, startTime, endTime } = ctx.request.query as Record<
+  let { projectCode, projectEnv, startTime, endTime } = ctx.request.query as Record<
     string,
     any
   >
 
   if (!projectCode) {
     ctx.body = new ApiData(400000, 'projectCode 参数不能为空！')
+    return
+  }
+
+  if (!projectEnv) {
+    ctx.body = new ApiData(400000, 'projectEnv 参数不能为空！')
     return
   }
 
@@ -77,11 +82,14 @@ projectRouter.get('/stat', async (ctx) => {
     return
   }
 
-  ctx.body = await projectStat({
+  ctx.body = await Topic.projectStat({
     projectCode,
+    projectEnv,
     startTime,
     endTime,
   })
 })
 
 export default projectRouter
+
+

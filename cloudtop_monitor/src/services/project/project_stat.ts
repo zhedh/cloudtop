@@ -1,7 +1,9 @@
 import { ApiResponse } from '../../types'
+import { ProjectEnv } from '../../types/project'
 import { httpCatch } from '../../utils/http'
 
 export interface QueryProjectStatParams {
+  projectEnv: ProjectEnv
   projectCode: string
   startTime: string // YYYY-MM-DD HH:mm:ss
   endTime: string // YYYY-MM-DD HH:mm:ss

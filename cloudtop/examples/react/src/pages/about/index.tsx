@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function About() {
   useEffect(() => {
-   
+
     //  const pathname = getPathname('history')
     //  console.log('pathname: ', pathname)
     setTimeout(() => {

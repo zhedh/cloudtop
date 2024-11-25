@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { count, search } from '../../services/elastic'
+import { count, search } from '../../database/elastic'
 
 const elasticRouter = new Router()
 

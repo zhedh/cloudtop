@@ -15,6 +15,17 @@ export default defineConfig(({ mode }) => {
       port: PORT,
       strictPort: true,
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            antd_lib: ['antd/lib'],
+            antd: ['antd'],
+            echarts: ['echarts'],
+          },
+        },
+      },
+    },
     plugins: [react()],
   }
 })

@@ -32,7 +32,7 @@ const ErrorApiHome = () => {
 
   useEffect(() => {
     getDateStats()
-    getTopList('date').then((data) => setDateTopList(data))
+    getTopList('reportTime').then((data) => setDateTopList(data))
     getTopList('count').then((data) => setCountTopList(data))
   }, [date])
 

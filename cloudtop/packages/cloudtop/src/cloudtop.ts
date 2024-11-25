@@ -84,7 +84,7 @@ class Cloudtop {
       ct: getNetworkType(),
       pvId: this.pvId,
       page: this.page ?? getPathname(this.routeMode),
-      src: window.location.href,
+      url: window.location.href,
       sr: width + '*' + height,
       vp: clientWidth + '*' + clientHeight,
 
@@ -133,7 +133,7 @@ class Cloudtop {
     // 监听 promise 错误上报
     listenPromiseError(this.report.bind(this))
 
-    // 页面加载性能上报
+    // 页面加载性能上报（注意：资源文件加载异常会使得性能上报失败）
     reportPerf(this.report.bind(this))
 
     // 接口日志上报

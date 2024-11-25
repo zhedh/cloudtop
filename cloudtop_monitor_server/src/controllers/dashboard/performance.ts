@@ -1,14 +1,7 @@
 import Router from 'koa-router'
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
-import {
-  performanceApiChart,
-  performanceApiStat,
-  performanceApiTopList,
-  performancePageNetworkChart,
-  performancePageStat,
-  performancePageTopList,
-} from '../../services/dashboard'
+import Topic from '../../services/topic'
 import { validateTimeRange } from '../../utils/validate'
 
 const performanceRouter = new Router()
@@ -25,7 +18,7 @@ performanceRouter.get('/page/stat', async (ctx) => {
 
   startTime = dayjs(startTime)
   endTime = dayjs(endTime)
-  ctx.body = await performancePageStat({
+  ctx.body = await Topic.performancePageStat({
     projectCode,
     projectEnv,
     startTime,
@@ -43,7 +36,7 @@ performanceRouter.get('/page/network/chart', async (ctx) => {
     return
   }
 
-  ctx.body = await performancePageNetworkChart({
+  ctx.body = await Topic.performancePageNetworkChart({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -61,7 +54,7 @@ performanceRouter.get('/page/top/list', async (ctx) => {
     return
   }
 
-  ctx.body = await performancePageTopList({
+  ctx.body = await Topic.performancePageTopList({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -79,7 +72,7 @@ performanceRouter.get('/api/stat', async (ctx) => {
     return
   }
 
-  ctx.body = await performanceApiStat({
+  ctx.body = await Topic.performanceApiStat({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -97,7 +90,7 @@ performanceRouter.get('/api/chart', async (ctx) => {
     return
   }
 
-  ctx.body = await performanceApiChart({
+  ctx.body = await Topic.performanceApiChart({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -115,7 +108,7 @@ performanceRouter.get('/api/top/list', async (ctx) => {
     return
   }
 
-  ctx.body = await performanceApiTopList({
+  ctx.body = await Topic.performanceApiTopList({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

@@ -1,22 +1,43 @@
 # Cloudtop 前端性能监控平台服务端
 
 用于检索性能上报数据，统计加载速度、响应效率、资源消耗等关键性能指标进行追踪和评估。
+日志存储和检索方式支持 Elastic、Mysql，请根据实际需要进行选择。
 
 ## 环境变量配置
 
-| 变量                         | 描述           | 必填 | 默认值 |
-| :--------------------------- | :------------- | :--- | :----- |
-| CLOUDTOP_MONITOR_SERVER_PORT | 应用端口号     | 可选 | 3100   |
-| CLOUDTOP_ELASTIC_NODE        | Elastic 连接   | 必填 | -      |
-| CLOUDTOP_ELASTIC_USERNAME    | Elastic 账号   | 必填 | -      |
-| CLOUDTOP_ELASTIC_PASSWORD    | Elastic 密码   | 必填 | -      |
-| CLOUDTOP_ELASTIC_INDEX       | Elastic 索引   | 必填 | -      |
-| CLOUDTOP_ELASTIC_TYPE        | Elastic 类型   | 必填 | -      |
+**应用配置**
+
+| 变量                         | 描述                        | 必填 | 默认值 |
+| :--------------------------- | :-------------------------- | :--- | :----- |
+| CLOUDTOP_MONITOR_SERVER_PORT | 应用端口号                  | 可选 | 3100   |
+| CLOUDTOP_LOGSTORE_TYPE       | 日志存储方式 mysql、elastic | 可选 | mysql  |
+
+注意：CLOUDTOP_LOGSTORE_TYPE 配置需与 cloudtop_server 中的一致
+
+**Mysql 配置**
+
+| 变量                       | 描述   | 必填 | 默认值 |
+| :------------------------- | :----- | :--- | :----- |
 | CLOUDTOP_DATABASE_HOST       | Mysql 主机     | 必填 | -      |
 | CLOUDTOP_DATABASE_PORT       | Mysql 端口号   | 必填 | -      |
 | CLOUDTOP_DATABASE_USER       | Mysql 账号     | 必填 | -      |
 | CLOUDTOP_DATABASE_PASSWORD   | Mysql 密码     | 必填 | -      |
 | CLOUDTOP_DATABASE_DATABASE   | Mysql 数据库名 | 必填 | -      |
+
+**Elastic 配置**
+
+CLOUDTOP_LOGSTORE_TYPE=elastic 时必填
+
+| 变量                      | 描述         | 必填 | 默认值 |
+| :------------------------ | :----------- | :--- | :----- |
+| CLOUDTOP_ELASTIC_NODE     | Elastic 连接 | 必填 | -      |
+| CLOUDTOP_ELASTIC_USERNAME | Elastic 账号 | 必填 | -      |
+| CLOUDTOP_ELASTIC_PASSWORD | Elastic 密码 | 必填 | -      |
+| CLOUDTOP_ELASTIC_INDEX    | Elastic 索引 | 必填 | -      |
+| CLOUDTOP_ELASTIC_TYPE     | Elastic 类型 | 必填 | -      |
+
+
+**配置说明**
 
 新建 .env 并写入环境变量，配置参考 .env.example 文件
 
@@ -25,21 +46,22 @@
 
 ```txt
 # 应用端口号。Docker 部署时需要 EXPOSE
-CLOUDTOP_MONITOR_SERVER_PORT=3100
+CLOUDTOP_MONITOR_SERVER_PORT=3100 # 应用端口号
+CLOUDTOP_LOGSTORE_TYPE=mysql # 日志存储方式
 
-# Elastic
+# Elastic 
 CLOUDTOP_ELASTIC_NODE=http://xxx.elasticsearch.aliyuncs.com:9200 # 连接（域名+端口号）
-CLOUDTOP_ELASTIC_USERNAME=elastic # 账号
-CLOUDTOP_ELASTIC_PASSWORD=12345678 # 密码
+CLOUDTOP_ELASTIC_USERNAME=xxx # 账号
+CLOUDTOP_ELASTIC_PASSWORD=xxx # 密码
 CLOUDTOP_ELASTIC_INDEX=cloudtop_logs # 索引（库名）
 CLOUDTOP_ELASTIC_TYPE=cloudtop_log # 类型（表名）
 
 # Database
-CLOUDTOP_DATABASE_HOST=xxx.mysql.rds.aliyuncs.com
-CLOUDTOP_DATABASE_PORT=3306
-CLOUDTOP_DATABASE_USER=admin
-CLOUDTOP_DATABASE_PASSWORD=admin123
-CLOUDTOP_DATABASE_DATABASE=cloudtop
+CLOUDTOP_DATABASE_HOST=xxx.mysql.rds.aliyuncs.com # 主机
+CLOUDTOP_DATABASE_PORT=3306 # 端口号
+CLOUDTOP_DATABASE_USER=xxx # 账号
+CLOUDTOP_DATABASE_PASSWORD=xxx # 密码
+CLOUDTOP_DATABASE_DATABASE=cloudtop #数据库
 ```
 
 ## 开发
@@ -61,13 +83,3 @@ npm run watch
 ```bash
 npm run start
 ```
-
-## 接口错误码映射
-
-| 模块      | 代码    |
-| :-------- | :------ |
-| project   | 000-099 |
-| user      | 100-199 |
-| dashboard | 200-299 |
-| behavior  | 300-399 |
-| error     | 400-499 |

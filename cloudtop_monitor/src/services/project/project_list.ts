@@ -1,9 +1,10 @@
 import { ApiListData } from '../../types'
-import { Project, ProjectType } from '../../types/project'
+import { Project, ProjectEnv, ProjectType } from '../../types/project'
 import { httpCatch } from '../../utils/http'
 
 export interface QueryProjectParams {
   projectType?: ProjectType
+  projectEnv?: ProjectEnv
   projectCode?: string
   projectName?: string
 }

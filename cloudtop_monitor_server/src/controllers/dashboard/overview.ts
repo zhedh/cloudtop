@@ -1,11 +1,7 @@
 import Router from 'koa-router'
 import dayjs from 'dayjs'
 import { ApiData } from '../../utils/response'
-import {
-  overviewCoreChart,
-  overviewFlow,
-  overviewSyntheticChart,
-} from '../../services/dashboard'
+import Topic from '../../services/topic'
 import { validateTimeRange } from '../../utils/validate'
 
 const overviewRouter = new Router()
@@ -20,7 +16,7 @@ overviewRouter.get('/flow', async (ctx) => {
     return
   }
 
-  ctx.body = await overviewFlow({
+  ctx.body = await Topic.overviewFlow({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -38,7 +34,7 @@ overviewRouter.get('/chart/core', async (ctx) => {
     return
   }
 
-  ctx.body = await overviewCoreChart({
+  ctx.body = await Topic.overviewCoreChart({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),
@@ -56,7 +52,7 @@ overviewRouter.get('/chart/synthetic', async (ctx) => {
     return
   }
 
-  ctx.body = await overviewSyntheticChart({
+  ctx.body = await Topic.overviewSyntheticChart({
     projectCode,
     projectEnv,
     startTime: dayjs(startTime),

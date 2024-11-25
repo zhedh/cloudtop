@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "ES2015",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,

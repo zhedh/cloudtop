@@ -19,7 +19,7 @@ export interface CommonData {
 
   sid: string // Session ID
   sr: string // 屏幕分辨率
-  src: string // 被监控目标地址
+  url: string // 被监控目标地址
   uid: string // 用户ID
   vp: string // 页面大小
   loginId?: string // 用户登录账号
@@ -32,7 +32,7 @@ export interface PvData {
   de: string // 文档编码类型
   dpr: string // 屏幕像素比
   lang: string // 文档语言
-  url: string // 页面链接
+  // url: string // 页面链接
 }
 
 export interface ErrorData {
@@ -58,7 +58,9 @@ export interface ResourceErrorData {
 
 export interface PerfData {
   type: LogType.PERF // 日志类型
-  dns: number // DNS连接耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  redirectTime: number // 重定向耗时（毫秒，下面字段涉及到耗时的单位都是毫秒）
+  appDns: number // 应用程序缓存的DNS解析耗时
+  dns: number // DNS连接耗时
   tcp: number // TCP连接耗时
   ssl: number // SSL连接耗时
   ttfb: number // 网络请求耗时。等待接收响应的第一个字节所花费的时间
