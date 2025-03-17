@@ -6,11 +6,11 @@ Cloudtop 前端监控系统是一套集流量监控、错误监控、性能监�
 
 ## 文档
 
-查看文档，请访问[cloudtop-docs](http://cloudtop-docs.juyangkaifa.com)。
+查看文档，请访问[cloudtop-docs](http://cloudtop-docs.zhedh.cn)。
 
 ## 预览
 
-预览效果，请访问[Cloudtop 前端性能监控](http://cloudtop-monitor.juyangkaifa.com/)
+预览效果，请访问[Cloudtop 前端性能监控](http://cloudtop-monitor.zhedh.cn/)
 
 ## 变更记录
 
@@ -37,7 +37,7 @@ git clone https://github.com/zhedh/cloudtop.git
 
 配置文件 .env 包含应用配置、mysql配置、elastic 配置（可选）；请将配置参数替换成你自己项目的配置再启动项目。
 
-配置参考[环境变量](http://cloudtop-docs.juyangkaifa.com/config/env)
+配置参考[环境变量](http://cloudtop-docs.zhedh.cn/config/env)
 
 ### 安装依赖
 
